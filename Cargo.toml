@@ -8,22 +8,22 @@ license = "GPL-3.0"
 
 [dependencies]
 anyhow = "1.0.100"
-clap = { version = "4.5.53", features = ["derive", "wrap_help", "deprecated"] }
+clap = { version = "4.5.57", features = ["derive", "wrap_help", "deprecated"] }
 eframe = { version = "0.33.3", features = ["persistence"] }
-fast_image_resize = "5.4.0"
+fast_image_resize = "6.0.0"
 image = { version = "0.25.9", default-features = false, features = ["png"] }
 rgb = "0.8.52"
 itertools = "0.14.0"
 lcms2 = "6.1.1"
 num_enum = "0.7.5"
-tokio = { version = "1.48.0", default-features = false, features = ["rt-multi-thread", "macros", "sync"] }
+tokio = { version = "1.49.0", default-features = false, features = ["rt-multi-thread", "macros", "sync"] }
 tokio-stream = { version = "*", default-features = false, features = ["net"] }
 parking_lot = "0.12.5"
 poll-promise = "0.3.0"
-rfd = "0.16.0"
+rfd = "0.17.2"
 serde_derive = "1.0.228"
 serde = "1.0.228"
-vapoursynth = { version = "0.5.0" }
+vapoursynth = { version = "0.5.2" }
 
 [[bin]]
 name = "vspreview-rs"
