@@ -54,6 +54,8 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v8
+        with:
+          path: artifacts
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -62,7 +64,7 @@ jobs:
         uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
-            Windows artifacts/*
+            artifacts/*
 
       - name: Create a draft release
         uses: softprops/action-gh-release@v2
@@ -70,4 +72,4 @@ jobs:
           tag_name: ${{ env.RELEASE_PKG_VERSION }}
           draft: true
           files: |
-            Windows artifacts/*
+            artifacts/*
