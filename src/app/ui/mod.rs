@@ -29,13 +29,13 @@ const STATE_LABEL_COLOR: epaint::Color32 = epaint::Color32::from_gray(160);
 pub struct PreviewerMainUi {}
 
 impl PreviewerMainUi {
-    pub fn ui(pv: &mut VSPreviewer, ctx: &egui::Context, ui: &mut egui::Ui) -> Result<()> {
+    pub fn ui(pv: &mut VSPreviewer, ui: &mut egui::Ui) -> Result<()> {
         let cur_output = pv.state.cur_output;
         let has_current_output = !pv.outputs.is_empty() && pv.outputs.contains_key(&cur_output);
 
         // Draw window on top
         if pv.state.show_gui {
-            UiStateWindow::ui(pv, ctx);
+            UiStateWindow::ui(pv, ui);
         }
 
         // Centered image painted on
@@ -48,7 +48,7 @@ impl PreviewerMainUi {
             let about_text = RichText::new("About").size(18.0).color(STATE_LABEL_COLOR);
 
             if ui.button(change_script_text).clicked() {
-                pv.change_script_file(ctx);
+                pv.change_script_file(ui);
                 ui.close();
             }
 
@@ -60,7 +60,7 @@ impl PreviewerMainUi {
 
         // Bottom panel
         if pv.state.show_gui && has_current_output {
-            UiBottomPanel::ui(pv, ctx)?;
+            UiBottomPanel::ui(pv, ui)?;
         }
 
         // About window
@@ -68,7 +68,7 @@ impl PreviewerMainUi {
             .open(&mut pv.about_window_open)
             .resizable(false)
             .anchor(Align2::CENTER_CENTER, Vec2::ZERO)
-            .show(ctx, |ui| {
+            .show(ui, |ui| {
                 ui.with_layout(Layout::top_down(Align::Center), |ui| {
                     ui.heading("vspreview-rs");
                     ui.label("Minimal and functional VapourSynth script previewer");
@@ -90,7 +90,7 @@ impl PreviewerMainUi {
             });
 
         // Check at the end of frame for reprocessing
-        pv.try_rerender(ctx)?;
+        pv.try_rerender(ui)?;
 
         Ok(())
     }

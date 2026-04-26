@@ -5,7 +5,7 @@ use eframe::epaint::MarginF32;
 pub struct UiBottomPanel {}
 
 impl UiBottomPanel {
-    pub fn ui(pv: &mut VSPreviewer, ctx: &egui::Context) -> Result<()> {
+    pub fn ui(pv: &mut VSPreviewer, ui: &mut egui::Ui) -> Result<()> {
         let output = pv
             .outputs
             .get_mut(&pv.state.cur_output)
@@ -21,9 +21,9 @@ impl UiBottomPanel {
                 bottom: 10.0,
             });
 
-        egui::TopBottomPanel::bottom("BottomInfo")
+        egui::Panel::bottom("BottomInfo")
             .frame(transparent_frame)
-            .show(ctx, |ui| {
+            .show_inside(ui, |ui| {
                 // Add slider
                 ui.spacing_mut().slider_width = 600.0;
 

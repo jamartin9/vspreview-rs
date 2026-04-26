@@ -5,7 +5,7 @@ use eframe::epaint::{Color32, ColorImage, Vec2};
 use fast_image_resize::{self as fr, ResizeAlg, ResizeOptions};
 use fr::images::Image as FrImage;
 use image::{DynamicImage, ImageBuffer};
-use rgb::{AsPixels, ComponentSlice};
+use rgb::AsPixels;
 use vapoursynth::prelude::{ColorFamily, FrameRef};
 
 use crate::app::{PreviewState, PreviewTransforms};
@@ -142,10 +142,7 @@ pub fn image_to_colorimage(
 
                 transformed
                     .iter()
-                    .map(|p| {
-                        let p = p.as_slice();
-                        Color32::from_rgb(p[0], p[1], p[2])
-                    })
+                    .map(|p| Color32::from_rgb(p.r, p.g, p.b))
                     .collect()
             } else {
                 rgb.as_raw()

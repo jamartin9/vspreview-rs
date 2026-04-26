@@ -34,7 +34,7 @@ impl UiPreviewImage {
             zoom_delta = 1.0;
         }
 
-        let scroll_delta = ui.input(|i| i.raw_scroll_delta);
+        let scroll_delta = ui.input(|i| i.smooth_scroll_delta);
 
         // Acquire frame texture to render now
         let preview_frame = if has_current_output {

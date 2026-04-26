@@ -709,7 +709,7 @@ impl VSPreviewer {
         Ok(())
     }
 
-    pub fn check_misc_keyboard_inputs(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
+    pub fn check_misc_keyboard_inputs(&mut self, ui: &mut egui::Ui) {
         // Don't allow quit when inputs are still focused
         if !self.any_input_focused() {
             if ui.input(|i| i.key_pressed(Key::Q) || i.key_pressed(Key::Escape)) {
@@ -721,7 +721,7 @@ impl VSPreviewer {
                         .try_send(VSCommandMsg {
                             res_sender,
                             cmd: VSCommand::Exit,
-                            egui_ctx: ctx.clone(),
+                            egui_ctx: ui.ctx().clone(),
                         })
                         .ok();
                 }
@@ -733,9 +733,9 @@ impl VSPreviewer {
                     self.inputs_focused.clear();
                 }
             } else if ui.input(|i| i.key_pressed(Key::R)) {
-                self.reload(ctx.clone())
+                self.reload(ui.ctx().clone())
             } else if ui.input(|i| i.modifiers.ctrl && i.modifiers.shift && i.key_pressed(Key::C)) {
-                ctx.copy_text(self.state.cur_frame_no.to_string());
+                ui.ctx().copy_text(self.state.cur_frame_no.to_string());
             }
         }
     }

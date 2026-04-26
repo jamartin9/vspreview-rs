@@ -14,15 +14,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-release-env
-
-      - name: Install VapourSynth (Windows)
-        run: build/win64-vs-setup.ps1
 
       - name: Build
         run: |
-          $Env:Path += ";C:\Program Files\VapourSynth;"
           cargo build --profile ${{ env.BUILD_PROFILE }}
 
       - name: Create zipfile
@@ -34,7 +30,7 @@ jobs:
           7z a ./${X86_64_ARCHIVE_FILE} ./${{ env.RELEASE_BIN }}.exe
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Windows artifacts
           path: ./${{ env.RELEASE_DIR }}/*
@@ -49,13 +45,13 @@ jobs:
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
 
       - name: Display structure of downloaded files
         run: ls -R
 
       - name: Attest
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
             Windows artifacts/*
